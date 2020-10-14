@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="alert alert-danger" *ngIf="errorMessage">
+        <strong>Error!</strong> {{errorMessage}}
+    </div>
+    <div class="alert alert-success" *ngIf="infoMessage">
+        {{infoMessage}}
+    </div>
+<div class="member-container">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col col-xs-6">
+                    <h3 class="panel-title">All Authorizations</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Reference #</th>
+                        <th scope="col">Contact Name</th>
+                        <th scope="col">Contact Phone</th>
+                        <th scope="col">Contact Method</th>
+                        <th scope="col">Initiated Date</th>
+                        <th scope="col">Valid From</th>
+                        <th scope="col">Valid To</th>
+                        <th scope="col"> 
+                            <button class="btn btn-info" (click)="addAuth()">Add</button>
+                        </th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of authorizationList; index as ind">
+                        <th scope="row">{{ind + 1}}</th>
+                        <td>{{item.referenceNumber}}</td>
+                        <td>{{item.contactName}}</td>
+                        <td>{{item.contactPhone}}</td>
+                        <td>{{item.contactMethod | titlecase}}</td>
+                        <td>{{item.dateInitiated  | date:"MMM d, y"}}</td>
+                        <td>{{item.dateValidFrom  | date:"MMM d, y"}}</td>
+                        <td>{{item.dateValidTo  | date:"MMM d, y"}}</td>
+                        <td>
+                            <button class="btn btn-success" (click)="authDetails(item)">View</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+<router-outlet></router-outlet>

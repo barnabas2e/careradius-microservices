@@ -1,0 +1,93 @@
+<div class="container">
+    <div class="alert alert-danger" *ngIf="errorMessage">
+        <strong>Error!</strong> {{errorMessage}}
+    </div>
+    <div class="alert alert-success" *ngIf="infoMessage">
+        {{infoMessage}}
+    </div>
+    <div class="auth-container">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col col-md-6">
+                        <div class="panel-title">
+                            <h3>Authorization</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <form #authForm="ngForm" (ngSubmit)="initiateAuth(authorization)">
+                    <div class="container form-container">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="mem-id">Member ID</label>
+                                    <input class="form-control" [(ngModel)]="memberId" placeholder="Member ID" #memId="ngModel" type="text" name="mem-id" id="mem-id" required>
+                                    <p class="alert alert-danger" *ngIf="authForm.submitted && !memId.valid">
+                                        Member ID is required
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="ref-number">Reference Number</label>
+                                    <input class="form-control" [(ngModel)]="authorization.referenceNumber" placeholder="Reference Number" #referenceNumber="ngModel" type="text" name="ref-number" id="ref-number" required>
+                                </div>
+                                <div class="alert alert-danger" *ngIf="authForm.submitted && !referenceNumber.valid">
+                                    Reference Number is required
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="cont-name">Contact Name</label>
+                                    <input class="form-control" [(ngModel)]="authorization.contactName" placeholder="Contact Name" #contactName="ngModel" type="text" name="cont-name" id="cont-name" >
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="cont-phone">Contact Phone</label>
+                                    <input class="form-control" [(ngModel)]="authorization.contactPhone" placeholder="Contact Phone" #contactPhone="ngModel" type="text" name="cont-phone" id="cont-phone" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="cont-method">Contact Method</label>
+                                    <p>
+                                        <select class="form-control" name="contactMethod" [(ngModel)]="authorization.contactMethod" #contactMethod="ngModel">
+                                            <!-- <option [ngValue]="null">Select one...</option> -->
+                                            <option *ngFor="let method of contactMethods | keyvalue" [ngValue]="method.key">{{method.value}}</option>
+                                        </select>
+                                    </p>          
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="init-date">Initiated Date</label>
+                                    <input class="form-control" [(ngModel)]="authorization.dateInitiated" #dateInitiated="ngModel" type="date" name="init-date" id="init-date" >
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="valid-from">Valid From</label>
+                                    <input class="form-control" [(ngModel)]="authorization.dateValidFrom" #dateValidFrom="ngModel" type="date" name="valid-from" id="valid-from" >
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="valid-to">Valid From</label>
+                                    <input class="form-control" [(ngModel)]="authorization.dateValidTo" #dateValidTo="ngModel" type="date" name="valid-to" id="valid-to" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <button class="btn btn-primary" type="submit" style="margin-left: 1.8%;">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

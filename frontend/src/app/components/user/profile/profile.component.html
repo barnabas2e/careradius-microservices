@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="jumbotron">
+        <h3>Member Activity</h3>
+    </div>
+        <div class="col-12 col-6">
+            <form name="member-search" (ngSubmit)="f.form.valid && findMember(member)" #f="ngForm" novalidate>
+                <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+                    {{ errorMessage }}
+                </div>
+                <div class="alert alert-danger" *ngIf="f.submitted && !memberId.valid">
+                    Member ID criteria must be provided
+                </div>
+                <div class="col-6 input-group mb-3" [ngClass]="{ 'has-error': f.submitted && !memberId.valid}" style="margin-left: 53%;">
+                    <input 
+                        type="text" 
+                        class="form-control"
+                        placeholder="Member ID" 
+                        aria-label="Member ID" 
+                        aria-describedby="basic-addon2"
+                        id="memberId" 
+                        name="memberId"
+                        [(ngModel)]="member.memberId" #memberId="ngModel" required
+                        >
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+               
+                </div> 
+               
+            </form>
+            <div class="transaction-container">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col col-xs-6">
+                                <h3 class="panel-title">Authorizations</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Reference #</th>
+                                <th scope="col">Initiated Date / Time</th>
+                                <th scope="col">Contact Name</th>
+                                <th scope="col">Contact Phone</th>
+                                <th scope="col">Contact Method</th>                               
+                                <th scope="col">Valid From</th>
+                                <th scope="col">Valid To</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of transactionList; let i=index">
+                                <th scope="row">{{i + 1}}</th>
+                                <td>{{item.authorization.referenceNumber}}</td>
+                                <td>{{item.authorization.dateInitiated | date:"MMM d, y, h:mm:ss a"}}</td>
+                                <td>{{item.authorization.contactName}}</td>
+                                <td>{{item.authorization.contactPhone}}</td>
+                                <td>{{item.authorization.contactMethod | titlecase}}</td>                                
+                                <td>{{item.authorization.dateValidFrom | date:"MMM d, y, h:mm:ss a"}}</td>
+                                <td>{{item.authorization.dateValidTo | date:"MMM d, y, h:mm:ss a"}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+         </div>   
+</div>
