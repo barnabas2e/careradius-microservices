@@ -1,9 +1,15 @@
 <div class="container">
-    <div class="alert alert-danger" *ngIf="errorMessage">
+    <div class="alert alert-danger alert-dismissible show fade" role="alert" *ngIf="errorMessage">
         <strong>Error!</strong> {{errorMessage}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
-    <div class="alert alert-success" *ngIf="infoMessage">
+    <div class="alert alert-success alert-dismissible show fade " role="alert" *ngIf="infoMessage">
         {{infoMessage}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="auth-container">
         <div class="card">
@@ -24,7 +30,7 @@
                                 <div class="form-group">
                                     <label for="mem-id">Member ID</label>
                                     <input class="form-control" [(ngModel)]="memberId" placeholder="Member ID" #memId="ngModel" type="text" name="mem-id" id="mem-id" required>
-                                    <p class="alert alert-danger" *ngIf="authForm.submitted && !memId.valid">
+                                    <p class="alert alert-danger" *ngIf="authForm.submitted && !memId.valid && (memId.touched || memId.dirty)">
                                         Member ID is required
                                     </p>
                                 </div>
@@ -34,7 +40,7 @@
                                     <label for="ref-number">Reference Number</label>
                                     <input class="form-control" [(ngModel)]="authorization.referenceNumber" placeholder="Reference Number" #referenceNumber="ngModel" type="text" name="ref-number" id="ref-number" required>
                                 </div>
-                                <div class="alert alert-danger" *ngIf="authForm.submitted && !referenceNumber.valid">
+                                <div class="alert alert-danger" *ngIf="authForm.submitted && !referenceNumber.valid && (referenceNumber.touched || referenceNumber.dirty)">
                                     Reference Number is required
                                 </div>
                             </div>
@@ -85,7 +91,7 @@
                     </div>
 
 
-                    <button class="btn btn-primary" type="submit" style="margin-left: 1.8%;">Save</button>
+                    <button class="btn btn-primary" type="submit" [disabled] = "!authForm.form.valid" style="margin-left: 1.8%;">Save</button>
                 </form>
             </div>
         </div>
