@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
    transactionList: Array<Transaction>;
    member: Member = new Member();
    errorMessage: string;
+   authCounter: number;
 
   constructor(private userService: UserService,
               private memberService: MemberService,
@@ -26,9 +27,9 @@ export class ProfileComponent implements OnInit {
               private router: Router) {
 
       this.currentUser = this.userService.currentUserValue;
-      if (this.currentUser) {
+     // if (this.currentUser) {
        // this.transactionList = JSON.parse(localStorage.getItem('current-transactionOfMember'));
-      }
+     // }
      }
 
   ngOnInit(): void {
@@ -54,8 +55,9 @@ export class ProfileComponent implements OnInit {
   findTransactionOfMember(memberInternalId: number){
     this.authorizationService.findTransactionOfMember(memberInternalId).subscribe(data => {
       this.transactionList = data;
+      this.authCounter = this.transactionList.length;
       // store locally
-      localStorage.setItem('current-transactionOfMember', JSON.stringify(this.transactionList));
+      // localStorage.setItem('current-transactionOfMember', JSON.stringify(this.transactionList));
     },
     err => {
       this.errorMessage = 'Unable to retrieve Authorization for member';
